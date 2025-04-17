@@ -1,0 +1,101 @@
+
+services:
+  r1:
+    build: .
+    stdin_open: true
+    tty: true
+    cap_add:
+      - ALL
+    privileged: true
+    networks:
+      net14:
+        ipv4_address: 10.0.14.1
+      topPath:
+        ipv4_address: 10.0.16.1
+      bottomPath:
+        ipv4_address: 10.0.17.1
+  
+  r2:
+    build: .
+    stdin_open: true
+    tty: true
+    cap_add:
+      - ALL
+    privileged: true
+    networks:
+      topPath:
+        ipv4_address: 10.0.16.2
+  
+  r3:
+    build: .
+    stdin_open: true
+    tty: true
+    cap_add:
+      - ALL
+    privileged: true
+    networks:
+      net15:
+        ipv4_address: 10.0.15.3
+      topPath:
+        ipv4_address: 10.0.16.3
+      bottomPath:
+        ipv4_address: 10.0.17.3
+  
+  r4:
+    build: .
+    stdin_open: true
+    tty: true
+    cap_add:
+      - ALL
+    privileged: true
+    networks:
+      bottomPath:
+        ipv4_address: 10.0.17.4
+
+  ha:
+    build: .
+    stdin_open: true
+    tty: true
+    cap_add:
+      - ALL
+    privileged: true    
+    networks:
+      net14:
+        ipv4_address: 10.0.14.10
+
+  hb:
+    build: .
+    stdin_open: true
+    tty: true
+    cap_add:
+      - ALL
+    privileged: true    
+    networks:
+      net15:
+        ipv4_address: 10.0.15.10
+
+networks:
+  net14:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.14.0/24
+  net15:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.15.0/24
+  topPath:
+    ipam:
+      driver: default
+      config:
+       - subnet: 10.0.16.0/24
+  bottomPath:
+    ipam:
+      driver: default
+      config:
+       - subnet: 10.0.17.0/24
+
+
+
+
