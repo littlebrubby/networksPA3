@@ -9,11 +9,11 @@ services:
     privileged: true
     networks:
       net14:
-        ipv4_address: 10.0.14.1
+        ipv4_address: 10.0.14.10
       topPath:
-        ipv4_address: 10.0.16.1
+        ipv4_address: 10.0.16.10
       bottomPath:
-        ipv4_address: 10.0.17.1
+        ipv4_address: 10.0.17.10
   
   r2:
     build: .
@@ -61,7 +61,7 @@ services:
     privileged: true    
     networks:
       net14:
-        ipv4_address: 10.0.14.10
+        ipv4_address: 10.0.14.11
 
   hb:
     build: .
@@ -72,7 +72,7 @@ services:
     privileged: true    
     networks:
       net15:
-        ipv4_address: 10.0.15.10
+        ipv4_address: 10.0.15.11
 
 networks:
   net14:
