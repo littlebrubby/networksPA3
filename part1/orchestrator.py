@@ -75,6 +75,10 @@ subprocess.Popen("docker exec part1-r4-1 vtysh -c 'configure terminal' -c 'route
 subprocess.Popen("docker exec part1-r4-1 vtysh -c 'configure terminal' -c 'interface eth0' -c 'ip ospf cost 10' -c 'exit' -c 'end'")
 subprocess.Popen("docker exec part1-r4-1 vtysh -c 'configure terminal' -c 'interface eth1' -c 'ip ospf cost 5' -c 'exit' -c 'end'")
 
+#connect endpoints
+subprocess.Popen("docker exec part1-ha-1 route add -net 10.0.15.0/24 gw 10.0.14.10")
+subprocess.Popen("docker exec part1-hb-1 route add -net 10.0.14.0/24 gw 10.0.15.3")
+
 keepGoing = True
 while keepGoing:
     command = input("To change traffic flow path, type 'n' for north path and 's' for south path. Type 'exit' to stop the program.")
