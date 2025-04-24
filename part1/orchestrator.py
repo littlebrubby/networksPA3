@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import subprocess
+import os
 #tells whether traffic is on north (n) or south (s) path
 curr_direction = "n"
 
@@ -18,7 +18,7 @@ def moveFlow(direction):
 
 #not doing these in a for loop because the networks are confusing between routers
 #r1
-subprocess.Popen("docker exec part1-r1-1 apt -y install curl")
+os.system("docker exec part1-r1-1 apt -y install curl")
 subprocess.Popen("docker exec part1-r1-1 apt -y install gnupg")
 subprocess.Popen("docker exec part1-r1-1 curl -s https://deb.frrouting.org/frr/keys.gpg | tee /usr/share/keyrings/frrouting.gpg > /dev/null")
 subprocess.Popen("docker exec part1-r1-1 apt install lsb-release")
