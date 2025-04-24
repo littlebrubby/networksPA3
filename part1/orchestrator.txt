@@ -1,0 +1,91 @@
+from this file directory, enter the following commands to download docker
+chmod 755 dockersetup
+./dockersetup
+sudo bash
+docker compose up -d
+
+enter the following commands to set up each router. parentheses indicate instructions to follow instead of commands
+
+docker attach part1-r1-1
+apt -y install curl
+apt -y install gnupg
+curl -s https://deb.frrouting.org/frr/keys.gpg | tee /usr/share/keyrings/frrouting.gpg > /dev/null
+apt install lsb-release
+FRRVER=frr-stable
+echo deb '[signed-by=/usr/share/keyrings/frrouting.gpg]' https://deb.frrouting.org/frr $(lsb_release -s -c) $FRRVER | tee -a /etc/apt/sources.list.d/frr.list
+apt update && apt -y install frr frr-pythontools
+(type ctrl+p ctrl+q)
+docker cp daemons part1-r1-1:/etc/frr/
+docker attach part1-r1-1
+service frr restart
+vtysh -c 'configure terminal' -c 'router ospf' -c 'network 10.0.14.0/24 area 0.0.0.0' -c 'network 10.0.16.0/24 area 0.0.0.0' -c 'network 10.0.18.0/24 area 0.0.0.0' -c 'end'
+vtysh -c 'configure terminal' -c 'interface eth0' -c 'ip ospf cost 5' -c 'exit' -c 'end'
+vtysh -c 'configure terminal' -c 'interface eth1' -c 'ip ospf cost 5' -c 'exit' -c 'end'
+vtysh -c 'configure terminal' -c 'interface eth2' -c 'ip ospf cost 5' -c 'exit' -c 'end'
+
+(type ctrl+p ctrl+q)
+
+docker attach part1-r2-1
+apt -y install curl
+apt -y install gnupg
+curl -s https://deb.frrouting.org/frr/keys.gpg | tee /usr/share/keyrings/frrouting.gpg > /dev/null
+apt install lsb-release
+FRRVER=frr-stable
+echo deb '[signed-by=/usr/share/keyrings/frrouting.gpg]' https://deb.frrouting.org/frr $(lsb_release -s -c) $FRRVER | tee -a /etc/apt/sources.list.d/frr.list
+apt update && apt -y install frr frr-pythontools
+(type ctrl+p ctrl+q)
+docker cp daemons part1-r2-1:/etc/frr/
+docker attach part1-r2-1
+service frr restart
+vtysh -c 'configure terminal' -c 'router ospf' -c 'network 10.0.16.0/24 area 0.0.0.0' -c 'network 10.0.17.0/24 area 0.0.0.0' -c 'end'
+vtysh -c 'configure terminal' -c 'interface eth0' -c 'ip ospf cost 5' -c 'exit' -c 'end'
+vtysh -c 'configure terminal' -c 'interface eth1' -c 'ip ospf cost 5' -c 'exit' -c 'end'
+
+(type ctrl+p ctrl+q)
+
+docker attach part1-r3-1
+apt -y install curl
+apt -y install gnupg
+curl -s https://deb.frrouting.org/frr/keys.gpg | tee /usr/share/keyrings/frrouting.gpg > /dev/null
+apt install lsb-release
+FRRVER=frr-stable
+echo deb '[signed-by=/usr/share/keyrings/frrouting.gpg]' https://deb.frrouting.org/frr $(lsb_release -s -c) $FRRVER | tee -a /etc/apt/sources.list.d/frr.list
+apt update && apt -y install frr frr-pythontools
+(type ctrl+p ctrl+q)
+docker cp daemons part1-r3-1:/etc/frr/
+docker attach part1-r3-1
+service frr restart
+vtysh -c 'configure terminal' -c 'router ospf' -c 'network 10.0.15.0/24 area 0.0.0.0' -c 'network 10.0.18.0/24 area 0.0.0.0' -c 'network 10.0.19.0/24 area 0.0.0.0' -c 'end'
+vtysh -c 'configure terminal' -c 'interface eth0' -c 'ip ospf cost 5' -c 'exit' -c 'end'
+vtysh -c 'configure terminal' -c 'interface eth1' -c 'ip ospf cost 5' -c 'exit' -c 'end'
+vtysh -c 'configure terminal' -c 'interface eth2' -c 'ip ospf cost 5' -c 'exit' -c 'end'
+
+(type ctrl+p ctrl+q)
+
+docker attach part1-r4-1
+apt -y install curl
+apt -y install gnupg
+curl -s https://deb.frrouting.org/frr/keys.gpg | tee /usr/share/keyrings/frrouting.gpg > /dev/null
+apt install lsb-release
+FRRVER=frr-stable
+echo deb '[signed-by=/usr/share/keyrings/frrouting.gpg]' https://deb.frrouting.org/frr $(lsb_release -s -c) $FRRVER | tee -a /etc/apt/sources.list.d/frr.list
+apt update && apt -y install frr frr-pythontools
+(type ctrl+p ctrl+q)
+docker cp daemons part1-r4-1:/etc/frr/
+docker attach part1-r4-1
+service frr restart
+vtysh -c 'configure terminal' -c 'router ospf' -c 'network 10.0.16.0/24 area 0.0.0.0' -c 'network 10.0.17.0/24 area 0.0.0.0' -c 'end'
+vtysh -c 'configure terminal' -c 'interface eth0' -c 'ip ospf cost 10' -c 'exit' -c 'end'
+vtysh -c 'configure terminal' -c 'interface eth1' -c 'ip ospf cost 5' -c 'exit' -c 'end'
+
+(type ctrl+p ctrl+q)
+
+docker exec part1-ha-1 route add -net 10.0.15.0/24 gw 10.0.14.10
+docker exec part1-hb-1 route add -net 10.0.14.0/24 gw 10.0.15.3
+
+(type ctrl+p ctrl+q)
+
+chmod 755 orchestrator.py
+./orchestrator.py
+
+follow printed instructions to change path. The network begins by taking the north path.
