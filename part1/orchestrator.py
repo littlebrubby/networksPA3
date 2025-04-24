@@ -3,7 +3,7 @@ import os
 #tells whether traffic is on north (n) or south (s) path
 curr_direction = "n"
 
-def moveFlow(direction):
+def moveFlow(direction, curr_direction):
     if direction == curr_direction:
         return
     if direction == "n":
@@ -83,7 +83,7 @@ keepGoing = True
 while keepGoing:
     command = input("To change traffic flow path, type 'n' for north path and 's' for south path. Type 'exit' to stop the program.")
     if command == 'n' or command == 's':
-        moveFlow(command)
+        moveFlow(command, curr_direction)
         print("current direction:", curr_direction)
     elif command == 'exit':
         keepGoing = False
