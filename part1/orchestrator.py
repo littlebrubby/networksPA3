@@ -1,6 +1,43 @@
 #!/usr/bin/env python
-import subprocess
+import sys
 import os
+
+if len(sys.argv) > 1:
+    if sys.argv[1] == "-h":
+        print("only use one argument at a time, or none")
+        print()
+        print("-h       help menu options")
+        print("-build   construct network topology only")
+        print("-ospf    construct topology and configure")
+        print("-route   above and add routes to hosts")
+        print("-run     above and allow orchestration")
+        print("no args  same as -run")
+        sys.exit()
+    elif sys.argv[1] == "-build":
+        os.system("chmod 755 dockersetup")
+        os.system("./dockersetup")
+        os.system("cd build-only && sudo docker compose build && sudo docker compose up -d")
+        os.system("cd ..")
+        sys.exit()
+    elif sys.argv[1] == "-ospf":
+        os.system("chmod 755 dockersetup")
+        os.system("./dockersetup")
+        os.system("sudo docker compose build")
+        os.system("sudo docker compose up -d")
+        sys.exit()
+    elif sys.argv[1] == "-route":
+        os.system("chmod 755 dockersetup")
+        os.system("./dockersetup")
+        os.system("sudo docker compose build")
+        os.system("sudo docker compose up -d")
+        os.system("sudo docker exec part1-ha-1 route add -net 10.0.15.0/24 gw 10.0.14.10")
+        os.system("sudo docker exec part1-hb-1 route add -net 10.0.14.0/24 gw 10.0.15.3")
+        sys.exit()
+    elif sys.argv[1] == "-run":
+        pass
+    else:
+        print("Unknown command.")
+        sys.exit()
 
 
 def moveFlow(direction, curr_direction):
