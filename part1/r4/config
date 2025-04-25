@@ -1,0 +1,6 @@
+#!/bin/bash
+service frr restart
+vtysh -c 'configure terminal' -c 'router ospf' -c 'network 10.0.18.0/24 area 0.0.0.0' -c 'network 10.0.19.0/24 area 0.0.0.0' -c 'end'
+vtysh -c 'configure terminal' -c 'interface eth0' -c 'ip ospf cost 10' -c 'exit' -c 'end'
+vtysh -c 'configure terminal' -c 'interface eth1' -c 'ip ospf cost 5' -c 'exit' -c 'end'
+bash
