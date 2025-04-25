@@ -16,4 +16,4 @@ COPY config .
 #RUN chmod 755 config
 
 
-CMD /bin/bash -c config && bash
+CMD /bin/bash -c ./config && bash
