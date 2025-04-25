@@ -13,4 +13,4 @@ RUN echo deb '[signed-by=/usr/share/keyrings/frrouting.gpg]' https://deb.frrouti
 RUN apt update && apt -y install frr frr-pythontools
 COPY daemons etc/frr
 #RUN chmod 755 config
-CMD config
+RUN /bin/bash -c "config"
