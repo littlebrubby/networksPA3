@@ -17,7 +17,6 @@ if len(sys.argv) > 1:
         os.system("chmod 755 dockersetup")
         os.system("./dockersetup")
         os.system("cd build-only && sudo docker compose build && sudo docker compose up -d")
-        os.system("cd ..")
         sys.exit()
     elif sys.argv[1] == "-ospf":
         os.system("chmod 755 dockersetup")
