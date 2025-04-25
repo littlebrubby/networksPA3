@@ -20,6 +20,7 @@ os.system("sudo docker compose build")
 os.system("sudo docker compose up -d")
 os.system("sudo docker exec part1-ha-1 route add -net 10.0.15.0/24 gw 10.0.14.10")
 os.system("sudo docker exec part1-hb-1 route add -net 10.0.14.0/24 gw 10.0.15.3")
+os.system("xterm &")
 
 #tells whether traffic is on north (n) or south (s) path
 curr_direction = "n"
