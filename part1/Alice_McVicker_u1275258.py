@@ -44,11 +44,15 @@ def moveFlow(direction, curr_direction):
         return
     if direction == "n":
         os.system("sudo docker exec part1-r2-1 vtysh -c 'configure terminal' -c 'interface eth0' -c 'ip ospf cost 5' -c 'end'")
+        os.system("sudo docker exec part1-r2-1 vtysh -c 'configure terminal' -c 'interface eth1' -c 'ip ospf cost 5' -c 'end'")
         os.system("sudo docker exec part1-r4-1 vtysh -c 'configure terminal' -c 'interface eth0' -c 'ip ospf cost 10' -c 'end'")
+        os.system("sudo docker exec part1-r4-1 vtysh -c 'configure terminal' -c 'interface eth1' -c 'ip ospf cost 10' -c 'end'")
     
     if direction == "s":
         os.system("sudo docker exec part1-r4-1 vtysh -c 'configure terminal' -c 'interface eth0' -c 'ip ospf cost 5' -c 'end'")
+        os.system("sudo docker exec part1-r4-1 vtysh -c 'configure terminal' -c 'interface eth1' -c 'ip ospf cost 5' -c 'end'")
         os.system("sudo docker exec part1-r2-1 vtysh -c 'configure terminal' -c 'interface eth0' -c 'ip ospf cost 10' -c 'end'")
+        os.system("sudo docker exec part1-r2-1 vtysh -c 'configure terminal' -c 'interface eth1' -c 'ip ospf cost 10' -c 'end'")
 
 
 os.system("chmod 755 dockersetup")
