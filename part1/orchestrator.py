@@ -7,19 +7,19 @@ def moveFlow(direction, curr_direction):
     if direction == curr_direction:
         return
     if direction == "n":
-        os.system("docker exec part1-r2-1 vtysh -c 'configure terminal' -c 'interface eth0' -c 'ip ospf cost 5' -c 'end'")
-        os.system("docker exec part1-r4-1 vtysh -c 'configure terminal' -c 'interface eth0' -c 'ip ospf cost 10' -c 'end'")
+        os.system("sudo docker exec part1-r2-1 vtysh -c 'configure terminal' -c 'interface eth0' -c 'ip ospf cost 5' -c 'end'")
+        os.system("sudo docker exec part1-r4-1 vtysh -c 'configure terminal' -c 'interface eth0' -c 'ip ospf cost 10' -c 'end'")
     
     if direction == "s":
-        os.system("docker exec part1-r4-1 vtysh -c 'configure terminal' -c 'interface eth0' -c 'ip ospf cost 5' -c 'end'")
-        os.system("docker exec part1-r2-1 vtysh -c 'configure terminal' -c 'interface eth0' -c 'ip ospf cost 10' -c 'end'")
+        os.system("sudo docker exec part1-r4-1 vtysh -c 'configure terminal' -c 'interface eth0' -c 'ip ospf cost 5' -c 'end'")
+        os.system("sudo docker exec part1-r2-1 vtysh -c 'configure terminal' -c 'interface eth0' -c 'ip ospf cost 10' -c 'end'")
 
 
-os.system("sudo bash")
-os.system("docker compose build")
-os.system("docker compose up -d")
-os.system("docker exec part1-ha-1 route add -net 10.0.15.0/24 gw 10.0.14.10")
-os.system("docker exec part1-hb-1 route add -net 10.0.14.0/24 gw 10.0.15.3")
+#os.system("sudo bash")
+os.system("sudo docker compose build")
+os.system("sudo docker compose up -d")
+os.system("sudo docker exec part1-ha-1 route add -net 10.0.15.0/24 gw 10.0.14.10")
+os.system("sudo docker exec part1-hb-1 route add -net 10.0.14.0/24 gw 10.0.15.3")
 
 #tells whether traffic is on north (n) or south (s) path
 curr_direction = "n"
