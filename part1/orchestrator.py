@@ -15,7 +15,8 @@ def moveFlow(direction, curr_direction):
         os.system("sudo docker exec part1-r2-1 vtysh -c 'configure terminal' -c 'interface eth0' -c 'ip ospf cost 10' -c 'end'")
 
 
-#os.system("sudo bash")
+os.system("chmod 755 dockersetup")
+os.system("./dockersetup")
 os.system("sudo docker compose build")
 os.system("sudo docker compose up -d")
 os.system("sudo docker exec part1-ha-1 route add -net 10.0.15.0/24 gw 10.0.14.10")
@@ -26,7 +27,7 @@ os.system("xterm &")
 curr_direction = "n"
 keepGoing = True
 while keepGoing:
-    command = input("To change traffic flow path, type 'n' for north path and 's' for south path. Type 'exit' to stop the program.")
+    command = input("To change traffic flow path, type 'n' for north path and 's' for south path. Type 'exit' to stop the program.\n")
     if command == 'n' or command == 's':
         moveFlow(command, curr_direction)
         curr_direction = command
@@ -35,3 +36,5 @@ while keepGoing:
         keepGoing = False
     else:
         print("Unknown command")
+
+os.system("sudo docker compose down")
