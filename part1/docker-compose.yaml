@@ -16,7 +16,7 @@ services:
         ipv4_address: 10.0.18.10
   
   r2:
-    build: ./r1
+    build: ./r2
     stdin_open: true
     tty: true
     cap_add:
