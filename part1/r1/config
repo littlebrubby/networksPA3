@@ -4,4 +4,3 @@ vtysh -c 'configure terminal' -c 'router ospf' -c 'network 10.0.14.0/24 area 0.0
 vtysh -c 'configure terminal' -c 'interface eth0' -c 'ip ospf cost 5' -c 'exit' -c 'end'
 vtysh -c 'configure terminal' -c 'interface eth1' -c 'ip ospf cost 5' -c 'exit' -c 'end'
 vtysh -c 'configure terminal' -c 'interface eth2' -c 'ip ospf cost 5' -c 'exit' -c 'end'
-tail -f /dev/null
