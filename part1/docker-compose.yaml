@@ -1,7 +1,7 @@
 
 services:
   r1:
-    build: .
+    build: ./r1
     stdin_open: true
     tty: true
     cap_add:
